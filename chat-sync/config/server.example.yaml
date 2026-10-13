@@ -1,0 +1,17 @@
+# chatsync 서버 설정
+# 이 파일을 config/server.yaml 로 복사해서 수정하세요.
+# 문자열 값의 ${ENV_VAR} 는 환경변수로 치환됩니다.
+
+host: "0.0.0.0"
+port: 8000
+
+# 저장할 DB (SQLAlchemy URL). 테이블은 첫 실행 시 자동 생성됩니다.
+#   PostgreSQL: postgresql+psycopg://user:pass@localhost:5432/chatsync
+#   MySQL:      mysql+pymysql://user:pass@localhost:3306/chatsync?charset=utf8mb4
+database_url: "${CHATSYNC_DATABASE_URL}"
+
+# 접속을 허용할 클라이언트: client_id -> API 키
+api_keys:
+  pc-01: "${CHATSYNC_API_KEY_PC01}"
+
+log_level: "INFO"

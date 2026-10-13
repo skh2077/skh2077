@@ -1,0 +1,26 @@
+# chatsync 클라이언트 설정 (채팅 로그가 쌓이는 PC)
+# 이 파일을 config/client.yaml 로 복사해서 수정하세요.
+# 문자열 값의 ${ENV_VAR} 는 환경변수로 치환됩니다.
+
+client_id: "pc-01"                       # 서버 api_keys 에 등록된 이름과 같아야 함
+
+# 감시할 채팅 텍스트파일 전체 경로 (Windows 는 / 또는 \\ 사용)
+source_file: "C:/chat/logs/chat.txt"
+
+# 어디까지 보냈는지 기록하는 파일
+state_file: "./chatsync-state.json"
+
+encoding: "utf-8"                        # utf-8 / cp949 / euc-kr 등 (UTF-16 불가)
+poll_interval_sec: 2                     # 폴링 주기(초). 파일 이벤트를 놓쳐도 이 주기로 확인
+use_file_events: true                    # 파일 변경 이벤트로 즉시 감지 (네트워크 드라이브에선 동작 안 할 수 있음)
+max_batch_bytes: 262144                  # 한 번에 보낼 최대 바이트
+log_level: "INFO"
+
+server:
+  url: "http://192.168.0.10:8000"        # 서버 주소
+  api_key: "${CHATSYNC_API_KEY}"         # 또는 직접 문자열 입력
+  timeout_sec: 10
+
+retry:
+  initial_backoff_sec: 1                 # 전송 실패 시 재시도 간격 (실패할 때마다 2배)
+  max_backoff_sec: 60
